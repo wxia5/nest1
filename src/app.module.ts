@@ -14,7 +14,7 @@ import { PhotoModule } from './photo/photo.module';
     database: 'postgis_25_sample',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  }), PhotoModule],
+  }), PhotoModule, CatsModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -29,7 +29,6 @@ export class AppModule implements NestModule {
       //   path:"cats",
       //   method:RequestMethod.GET
       //  })
-       .with('xwq')
       .forRoutes(CatsController);
   }
 }

@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, getManager, Index } from 'typeorm';
+import { isString } from 'util';
 
 @Entity()
-export class Photo {
+export class Cat {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -37,7 +38,7 @@ export class Photo {
     srid: 4326,
   })
   @Index({
-    spatial: true,
+    // spatial: true,
   })
-  geom4: string;
+  geom: string;
 }

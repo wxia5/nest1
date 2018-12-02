@@ -9,10 +9,9 @@ export class LoggerMiddleware implements NestMiddleware {
         //         return console.error(err);
         //     }
         //  });
-        const [xwq, name] = args;
-        console.log(xwq);
-        console.log(name);
-        next();
+      console.log(req);
+      console.log(res);
+      next();
     };
   }
 }
