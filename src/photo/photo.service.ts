@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager, getConnection } from 'typeorm';
 import { Photo } from './photo.entity';
+import { json } from 'express';
 
 @Injectable()
 export class PhotoService {
@@ -32,11 +33,11 @@ export class PhotoService {
     const photoFind =  await this.photoRepository.find(photo);
     return photoFind;
   }
-  // aync; queryJosn(){
-  //   return await this.photoRepository.createQueryBuilder().where("name  =:name",{
-  //     name:{
-
-  //     }
-  //   })
-  // }
+  queryJosn(name: string){
+    const name1 = parseInt(name);
+    const result = this.photoRepository.createQueryBuilder()
+    .select()
+    .where(`xwq :: json#>> \"{"name":${name1}}\"`).getMany() ;
+    return  result;
+  }
 }

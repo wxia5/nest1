@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, UseFilters, UseGuards, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, UseFilters, UseGuards, Put, Delete, Query, Param } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { Photo } from './photo.entity';
 import { ForbiddenException } from 'src/common/exception/forbidden.exception';
@@ -31,10 +31,10 @@ export class PhotoController {
     getByParam(@Body() photo: Photo){
         return this.photoService.getByParam(photo);
     }
-    // @Get('/queryJson')
-    // queryJson(@Body() photo: Photo){
-    //     return this.photoService.
-    // }
+    @Get('/queryJson')
+    queryJson(@Query() params){
+        return this.photoService.queryJosn(params.name);
+    }
 }
 
 function identity<T>(arg: T): T {
