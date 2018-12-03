@@ -40,4 +40,9 @@ export class Photo {
     spatial: true,
   })
   geom4: string;
+  @Column({
+    type: 'json',
+    default: {name: 111},
+  })
+  json: string;
 }

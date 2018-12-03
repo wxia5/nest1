@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, UseFilters, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, UseFilters, UseGuards, Put, Delete } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { Photo } from './photo.entity';
 import { ForbiddenException } from 'src/common/exception/forbidden.exception';
@@ -6,7 +6,7 @@ import { HttpExceptionFilter } from '../common/exception/filter/http-exception.f
 import { AuthGuard } from 'src/common/guard/auth.guard';
 
 @Controller('photo')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class PhotoController {
     constructor(private readonly photoService: PhotoService){}
     @Get()
@@ -19,6 +19,22 @@ export class PhotoController {
     addPhoto(@Body() photo: Photo){
         return this.photoService.add(photo);
     }
+    @Put('/edit')
+    editPhoto(@Body() photo: Photo){
+        return this.photoService.edit(photo);
+    }
+    @Delete('/delete')
+    delete(@Body() photo: Photo){
+        return this.photoService.delete(photo.id);
+    }
+    @Post('/params')
+    getByParam(@Body() photo: Photo){
+        return this.photoService.getByParam(photo);
+    }
+    // @Get('/queryJson')
+    // queryJson(@Body() photo: Photo){
+    //     return this.photoService.
+    // }
 }
 
 function identity<T>(arg: T): T {
