@@ -11,8 +11,8 @@ export class PhotoService {
     private readonly photoRepository: Repository<Photo>,
   ) {}
 
-  async findAll(): Promise<Photo[]> {
-    return await this.photoRepository.find();
+   findAll(): Promise<Photo[]> {
+    return  this.photoRepository.find();
   }
   add(photo: Photo){
       const geom = JSON.parse(photo.geom4);
@@ -29,15 +29,14 @@ export class PhotoService {
     const photoToRemove = await this.photoRepository.findOne(id);
     return this.photoRepository.remove(photoToRemove);
   }
-  async getByParam(photo: Photo){
-    const photoFind =  await this.photoRepository.find(photo);
+   getByParam(photo: Photo){
+    const photoFind =   this.photoRepository.find(photo);
     return photoFind;
   }
   queryJosn(name: string){
-    const name1 = parseInt(name);
     const result = this.photoRepository.createQueryBuilder()
     .select()
-    .where(`xwq :: json#>> \"{"name":${name1}}\"`).getMany() ;
+    .where(`"jsonData" ->> 'name' = '${name}'`).getManyAndCount() ;
     return  result;
   }
 }

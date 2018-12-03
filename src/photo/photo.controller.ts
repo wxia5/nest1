@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, UseFilters, UseGuards, Put, Delete, Query, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, UseFilters, UseGuards, Put, Delete, Query, Param, UseInterceptors } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { Photo } from './photo.entity';
 import { ForbiddenException } from 'src/common/exception/forbidden.exception';
 import { HttpExceptionFilter } from '../common/exception/filter/http-exception.filter';
 import { AuthGuard } from 'src/common/guard/auth.guard';
+import { LoggingInterceptor } from 'src/common/interceptor/logging.interceptor';
+import { TransformInterceptor } from '../common/interceptor/transform.interceptor';
 
 @Controller('photo')
-// @UseGuards(AuthGuard)
+@UseInterceptors(TransformInterceptor)
+@UseGuards(AuthGuard)
 export class PhotoController {
     constructor(private readonly photoService: PhotoService){}
     @Get()

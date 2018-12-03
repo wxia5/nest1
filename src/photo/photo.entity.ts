@@ -44,5 +44,5 @@ export class Photo {
     type: 'json',
     default: {name: 111},
   })
-  xwq: string;
+  jsonData: string;
 }
